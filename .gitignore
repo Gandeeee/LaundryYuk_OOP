@@ -1,0 +1,12 @@
+# NetBeans specific files (JANGAN DIHAPUS)
+/build/
+/dist/
+/nbproject/private/
+/nbproject/Makefile-*.mk
+/nbproject/Package-*.bash
+build.xml
+nbbuild.xml
+
+# Mac System files
+.DS_Store
+Thumbs.db

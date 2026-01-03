@@ -1,0 +1,151 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 22 Dec 2025, 22.18.16
+    Author     : gandisuastika
+*/
+
+/* 1. Variabel Warna & Font Global (dari Referensi) */
+:root {
+    --admin-primary: #dc2626; /* Merah Utama */
+    --admin-primary-light: #fef2f2; /* Merah Muda (untuk hover/bg) */
+    --admin-secondary: #b91c1c; /* Merah Lebih Gelap */
+    --admin-dark: #1f2937; /* Teks Gelap */
+    --admin-light: #ffffff; /* Putih */
+    --admin-gray: #6b7280; /* Teks Abu-abu */
+    --admin-gray-light: #f8fafc; /* Background Abu-abu Muda */
+    --admin-border: #e5e7eb; /* Warna Border */
+}
+
+/* 2. Base & Body Styling (Gabungan) */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Latar belakang dari referensi */
+    background: linear-gradient(135deg, var(--admin-gray-light) 0%, #f1f5f9 100%);
+    /* Font dari referensi */
+    font-family: 'Inter', -apple-system, BlinkMacMacFont, sans-serif;
+    color: var(--admin-dark);
+    line-height: 1.6;
+}
+
+/* 3. Wrapper (dari CSS Asli) */
+.login-wrapper {
+    max-width: 400px;
+    width: 100%;
+    padding: 15px;
+    /* Animasi fade-in dari referensi */
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 4. Card Styling (dari Referensi Bagian 6) */
+.card {
+    border: 1px solid var(--admin-border);
+    border-radius: 16px; /* Radius kartu dari referensi */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07); /* Shadow kartu dari referensi */
+    overflow: hidden;
+    background: var(--admin-light);
+}
+
+/* 5. Kustomisasi Card Header (Menggunakan Variabel) */
+.card-header {
+    background-color: var(--admin-primary);
+    color: var(--admin-light);
+    border-bottom: none;
+    padding: 1.5rem; /* Padding lebih besar */
+}
+
+.card-header svg {
+    width: 35px;
+    height: 35px;
+    color: var(--admin-light); /* Pastikan SVG putih */
+}
+
+.card-header h3 {
+    font-weight: 700;
+}
+
+.card-body .card-title {
+    font-weight: 700;
+    color: var(--admin-dark);
+    font-size: 1.3rem;
+}
+
+/* 6. Form Elements (dari Referensi Bagian 9) */
+.form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--admin-dark);
+}
+
+.form-control, .form-select {
+    border-radius: 10px; /* Radius form control */
+    border: 1px solid var(--admin-border);
+    padding: 0.65rem 1rem; /* Padding form control */
+    font-size: 0.9rem; /* Ukuran font form control */
+    transition: all 0.3s ease;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 3px var(--admin-primary-light); /* Shadow focus */
+}
+
+/* 7. Buttons (dari Referensi Bagian 5) */
+.btn {
+    border-radius: 10px; /* Radius tombol */
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 0.6rem 1.2rem; /* Padding tombol default */
+    font-size: 0.9rem; /* Ukuran font tombol default */
+}
+
+.btn-danger {
+    background-color: var(--admin-primary);
+    border-color: var(--admin-primary);
+    color: white;
+    /* Dibuat lebih besar untuk tombol login utama */
+    padding: 0.75rem 1.2rem;
+    font-size: 1rem;
+}
+
+.btn-danger:hover {
+    background-color: var(--admin-secondary);
+    border-color: var(--admin-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+    color: white;
+}
+
+/* 8. Link Registrasi (Disesuaikan dengan Variabel) */
+.login-wrapper .text-muted {
+    color: var(--admin-gray) !important;
+}
+
+.login-wrapper a {
+    color: var(--admin-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-wrapper a:hover {
+    text-decoration: underline;
+}

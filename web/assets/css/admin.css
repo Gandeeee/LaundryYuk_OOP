@@ -1,0 +1,497 @@
+/* ==========================================================================
+   MODERN LAUNDRY ADMIN DASHBOARD - ELEGANT THEME (INTEGRATED VERSION)
+   ========================================================================== */
+
+/* 1. VARIABLES & GLOBAL RESET */
+:root {
+    --admin-primary: #dc2626;       /* Merah Utama */
+    --admin-primary-light: #fef2f2; /* Merah Muda (Background Hover) */
+    --admin-secondary: #b91c1c;     /* Merah Gelap (Hover Button) */
+    --admin-success: #059669;       /* Hijau */
+    --admin-warning: #d97706;       /* Oranye */
+    --admin-info: #0369a1;          /* Biru */
+    --admin-dark: #1f2937;          /* Teks Hitam/Gelap */
+    --admin-light: #ffffff;         /* Putih */
+    --admin-gray: #6b7280;          /* Teks Abu-abu */
+    --admin-gray-light: #f8fafc;    /* Background Halaman */
+    --admin-border: #e5e7eb;        /* Garis Border */
+    --sidebar-width: 280px;
+    --header-height: 70px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--admin-dark);
+}
+
+/* ==========================================================================
+   2. SIDEBAR (DENGAN EFEK HOVER MODERN)
+   ========================================================================== */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--admin-light);
+    border-right: 1px solid var(--admin-border);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    position: fixed;
+    height: 100vh;
+    z-index: 1010;
+    transition: all 0.3s ease;
+}
+
+.sidebar-brand {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--admin-border);
+    background: var(--admin-light);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    text-decoration: none;
+}
+
+.sidebar-brand a {
+    display: flex; align-items: center; text-decoration: none;
+    color: var(--admin-dark); font-size: 1.3rem; font-weight: 700; gap: 12px;
+}
+
+.brand-logo {
+    width: 60px; height: 60px; object-fit: contain; border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+.sidebar-brand:hover .brand-logo { transform: scale(1.05); }
+
+.sidebar-nav { flex: 1; padding: 1rem 0; }
+
+.sidebar .nav-link {
+    color: var(--admin-dark);
+    font-size: 0.95rem; font-weight: 500;
+    padding: 1rem 1.5rem; margin: 0.25rem 1rem;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex; align-items: center; position: relative;
+    overflow: hidden; border: 1px solid transparent;
+    text-decoration: none;
+}
+
+.sidebar .nav-link i {
+    margin-right: 12px; font-size: 1.2rem; width: 20px; text-align: center;
+    transition: all 0.3s ease; color: var(--admin-gray);
+}
+
+/* --- EFEK HOVER SIDEBAR (PERMINTAAN #2) --- */
+.sidebar .nav-link:hover {
+    background: var(--admin-primary-light);
+    color: var(--admin-primary);
+    border-color: var(--admin-primary-light);
+    transform: translateX(8px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+}
+
+.sidebar .nav-link:hover i { color: var(--admin-primary); transform: scale(1.2); }
+
+.sidebar .nav-link.active {
+    background: var(--admin-primary-light);
+    color: var(--admin-primary);
+    border-color: var(--admin-primary);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+    transform: translateX(5px);
+}
+
+.sidebar .nav-link.active i { color: var(--admin-primary); transform: scale(1.1); }
+
+/* Garis Indikator Kiri */
+.sidebar .nav-link::before {
+    content: ''; position: absolute; left: 0; top: 0;
+    height: 100%; width: 4px; background: var(--admin-primary);
+    transform: scaleY(0); transition: transform 0.3s ease;
+}
+.sidebar .nav-link.active::before { transform: scaleY(1); }
+
+.sidebar-footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--admin-border);
+    background: var(--admin-gray-light);
+    margin-top: auto;
+}
+
+.sidebar-footer .nav-link:hover {
+    color: var(--admin-primary); background: var(--admin-primary-light);
+    transform: translateX(3px);
+}
+
+/* ==========================================================================
+   3. LAYOUT & NAVBAR
+   ========================================================================== */
+.content {
+    flex: 1; margin-left: var(--sidebar-width);
+    background: var(--admin-gray-light);
+    min-height: 100vh; transition: margin-left 0.3s ease;
+}
+
+.top-navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--admin-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 999;
+}
+
+/* ==========================================================================
+   4. DASHBOARD STATS (DENGAN EFEK HOVER CARD)
+   ========================================================================== */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--admin-light);
+    border-radius: 16px; padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--admin-border);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; gap: 1.5rem;
+}
+
+/* --- EFEK HOVER CARD (PERMINTAAN #1) --- */
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    border-color: transparent;
+}
+
+/* Garis Indikator Atas */
+.stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; background: var(--admin-primary);
+    transform: scaleX(0); transition: transform 0.4s ease;
+}
+.stat-card:hover::before { transform: scaleX(1); }
+
+.stat-icon {
+    width: 70px; height: 70px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; margin-bottom: 0; transition: all 0.4s ease;
+    flex-shrink: 0;
+}
+
+.stat-card:hover .stat-icon { transform: scale(1.1) rotate(5deg); }
+
+/* Warna Icon */
+.stat-card.primary .stat-icon { background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.2)); color: var(--admin-primary); }
+.stat-card.success .stat-icon { background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(5, 150, 105, 0.2)); color: var(--admin-success); }
+.stat-card.warning .stat-icon { background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(217, 119, 6, 0.2)); color: var(--admin-warning); }
+
+.stat-content h3 {
+    font-size: 2rem; font-weight: 800; color: var(--admin-dark);
+    margin-bottom: 0.2rem; transition: color 0.3s ease;
+}
+.stat-card:hover .stat-content h3 { color: var(--admin-primary); }
+.stat-content p { color: var(--admin-gray); font-weight: 500; margin: 0; font-size: 0.9rem; }
+
+/* ==========================================================================
+   5. MODERN CARDS & TABLES (DENGAN EFEK HOVER TABLE)
+   ========================================================================== */
+.card-modern, .card-order-management {
+    background: var(--admin-light);
+    border-radius: 16px;
+    border: 1px solid var(--admin-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-modern:hover, .card-order-management:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-header-modern, .card-header-order {
+    background: #fff;
+    border-bottom: 1px solid var(--admin-border);
+    padding: 1.5rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.card-header-modern h5, .card-header-order h5 {
+    font-weight: 700; margin: 0; color: var(--admin-dark);
+    font-size: 1.1rem; display: flex; align-items: center; gap: 10px;
+}
+
+/* --- TABLE STYLING --- */
+.table-modern, .table-order-management {
+    width: 100%; margin: 0; border-collapse: collapse;
+}
+
+.table-modern thead th, .table-order-management thead th {
+    background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
+    color: var(--admin-dark); font-weight: 700;
+    border: none; padding: 1rem 1.5rem;
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--admin-border); text-align: left;
+}
+
+.table-modern tbody td, .table-order-management tbody td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--admin-border);
+    vertical-align: middle;
+    color: var(--admin-dark);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+/* --- EFEK HOVER TABLE ROW (PERMINTAAN #3) --- */
+.table-modern tbody tr, .table-order-management tbody tr {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.table-modern tbody tr:hover, .table-order-management tbody tr:hover {
+    background-color: #fff1f2; /* Highlight Merah Muda */
+    transform: scale(1.002);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    z-index: 5; position: relative;
+}
+
+.table-modern tbody tr:hover td, .table-order-management tbody tr:hover td {
+    color: var(--admin-primary);
+}
+
+/* ==========================================================================
+   6. COMPONENTS (BUTTONS & BADGES)
+   ========================================================================== */
+.status-badge, .payment-badge {
+    padding: 0.4rem 0.8rem; border-radius: 6px;
+    font-weight: 600; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    display: inline-block; min-width: 100px; text-align: center;
+    transition: transform 0.3s;
+}
+.status-badge:hover, .payment-badge:hover { transform: scale(1.05); }
+
+.bg-primary { background: var(--admin-primary) !important; color: white; }
+.bg-success { background: var(--admin-success) !important; color: white; }
+.bg-secondary { background: #e5e7eb !important; color: var(--admin-dark); }
+.bg-warning { background: #fef3c7 !important; color: #92400e; }
+.bg-info { background: var(--admin-info) !important; color: white; }
+.bg-dark { background: var(--admin-dark) !important; color: white; }
+
+/* Buttons */
+.btn-add-order {
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
+    color: white; border: none; padding: 0.7rem 1.25rem;
+    border-radius: 10px; font-weight: 700; font-size: 0.85rem;
+    display: flex; align-items: center; gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
+}
+.btn-add-order:hover {
+    background: linear-gradient(135deg, var(--admin-secondary), #991b1b);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(220, 38, 38, 0.3);
+}
+
+.btn-action {
+    background: #fff; border: 1px solid var(--admin-border);
+    color: var(--admin-dark); padding: 0.5rem 0.8rem;
+    border-radius: 8px; font-size: 0.75rem; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 5px;
+    transition: all 0.2s; cursor: pointer;
+    text-decoration: none;
+}
+.btn-action:hover {
+    background: var(--admin-gray-light); transform: translateY(-1px);
+    border-color: var(--admin-gray);
+}
+.btn-action.btn-status { color: var(--admin-info); border-color: var(--admin-info); }
+.btn-action.btn-status:hover { background: var(--admin-info); color: #fff; }
+
+/* ==========================================================================
+   7. UTILITY & RESPONSIVE
+   ========================================================================== */
+.page-content {
+    padding: 2rem; display: none;
+    animation: fadeIn 0.4s ease-out;
+}
+.page-content.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.sidebar-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); z-index: 1005; display: none;
+}
+body.sidebar-toggled .sidebar { transform: translateX(0); }
+body.sidebar-toggled .sidebar-overlay { display: block; }
+
+/* Responsive Rules */
+@media (max-width: 992px) {
+    .sidebar { transform: translateX(-100%); }
+    .content { margin-left: 0; }
+    .top-navbar h5 { font-size: 1.25rem; margin-left: 0.5rem; }
+    .page-content { padding: 1rem; }
+    
+    .table-order-management { font-size: 0.8rem; }
+    .table-order-management th, .table-order-management td { padding: 0.8rem; }
+}
+
+@media (max-width: 768px) {
+    .dashboard-stats { grid-template-columns: 1fr; }
+    .card-header-order { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .action-buttons-order { justify-content: flex-start; }
+    .btn-action { padding: 0.4rem 0.6rem; font-size: 0.7rem; }
+}
+
+
+/* ==========================================================================
+   8. BUG FIX: TOGGLE SWITCH ALIGNMENT (MODAL DRIVER)
+   ========================================================================== */
+
+/* Target elemen spesifik di modal driver yang menggunakan class p-3 border */
+.form-switch.p-3 {
+    display: flex !important;       /* Gunakan Flexbox */
+    align-items: center !important; /* Rata tengah vertikal */
+    padding-left: 1.25rem !important; /* Reset padding kiri container */
+    gap: 15px;                      /* Jarak antara Switch dan Teks */
+    background-color: #fff;         /* Pastikan background putih bersih */
+    border: 1px solid var(--admin-border) !important;
+}
+
+/* Reset posisi Input Switch (Hilangkan negative margin bawaan Bootstrap) */
+.form-switch.p-3 .form-check-input {
+    margin-left: 0 !important;      /* Hapus margin negatif */
+    float: none !important;         /* Hapus float */
+    width: 3.2em !important;        /* Lebar switch sedikit diperbesar */
+    height: 1.6em !important;       /* Tinggi switch proporsional */
+    cursor: pointer;
+    flex-shrink: 0;                 /* Mencegah switch mengecil */
+    background-color: #e5e7eb;      /* Warna saat mati (abu-abu) */
+    border-color: #d1d5db;
+    transition: background-position .15s ease-in-out, background-color .3s;
+}
+
+/* Warna saat Switch AKTIF (Checked) -> Hijau (Tersedia) */
+.form-switch.p-3 .form-check-input:checked {
+    background-color: var(--admin-success);
+    border-color: var(--admin-success);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+}
+
+/* Styling Label Teks */
+.form-switch.p-3 .form-check-label {
+    margin-bottom: 0;
+    cursor: pointer;
+    flex-grow: 1; /* Area klik memenuhi sisa ruang */
+    color: var(--admin-dark);
+}
+
+/* Styling Teks Keterangan Kecil di bawah label */
+.form-switch.p-3 .text-muted {
+    display: block;
+    margin-top: 2px;
+    font-weight: 400;
+}
+
+/* ===== MANAJEMEN ORDER STYLING ===== */
+
+/* Card Modern untuk Order Table */
+.card-order-management {
+    background: var(--admin-light);
+    border-radius: 16px;
+    border: 1px solid var(--admin-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card-order-management:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card-header-order {
+    background: linear-gradient(135deg, var(--admin-light), var(--admin-gray-light));
+    border-bottom: 1px solid var(--admin-border);
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header-order h5 {
+    color: var(--admin-dark);
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+
+.card-header-order h5 .bi {
+    color: var(--admin-primary);
+    font-size: 1.2rem;
+}
+
+/* Table Styling untuk Order */
+.table-order-management {
+    margin: 0;
+    border-color: var(--admin-border);
+    font-size: 0.85rem;
+}
+
+.table-order-management thead th {
+    background: linear-gradient(135deg, var(--admin-primary-light), #fdf2f2);
+    color: var(--admin-dark);
+    font-weight: 700;
+    border: none;
+    padding: 1rem 1.25rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--admin-primary);
+    vertical-align: middle;
+}
+
+.table-order-management tbody td {
+    padding: 1rem 1.25rem;
+    border-color: var(--admin-border);
+    vertical-align: middle;
+    color: var(--admin-dark);
+    transition: all 0.3s ease;
+}
+
+.table-order-management tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.table-order-management tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table-order-management tbody tr:hover {
+    background: linear-gradient(135deg, var(--admin-primary-light), #fef7f7);
+    transform: translateX(3px);
+}
+
+.table-order-management tbody tr:hover td {
+    color: var(--admin-primary);
+}
