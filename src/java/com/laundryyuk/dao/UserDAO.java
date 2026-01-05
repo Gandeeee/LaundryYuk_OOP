@@ -8,7 +8,8 @@ package com.laundryyuk.dao;
  *
  * @author gandisuastika
  */
-
+import com.laundryyuk.model.Admin;
+import com.laundryyuk.model.Customer;
 import com.laundryyuk.config.DatabaseConnection;
 import com.laundryyuk.model.Customer;
 import com.laundryyuk.model.User;
@@ -77,11 +78,6 @@ public class UserDAO {
         return isSuccess;
     }
 
-    /**
-     * Melakukan proses Login.
-     * Mencocokkan Email dan Password Hash.
-     * @return Objek User jika berhasil, null jika gagal.
-     */
     public User login(String email, String passwordInput) {
         User user = null;
         String sql = "SELECT * FROM users WHERE email = ?";
@@ -98,12 +94,24 @@ public class UserDAO {
 
                 // Cek kesamaan Hash
                 if (dbPassHash.equals(inputPassHash)) {
-                    user = new User();
+                    // Ambil Role dari Database
+                    String role = rs.getString("role");
+
+                    // --- PERUBAHAN KRUSIAL DI SINI ---
+                    // Logika: Cek Role dulu, baru create object Anaknya
+                    if ("ADMIN".equals(role)) {
+                        user = new Admin(); // Buat objek Admin
+                    } else {
+                        user = new Customer(); // Buat objek Customer
+                    }
+                    // ---------------------------------
+
+                    // Set Data Umum (Milik User) ke objek tersebut
                     user.setUserId(rs.getString("user_id"));
                     user.setEmail(rs.getString("email"));
                     user.setPasswordHash(dbPassHash); // Simpan hashnya saja di object
                     user.setPhoneNumber(rs.getString("phone_number"));
-                    user.setRole(rs.getString("role"));
+                    user.setRole(role);
                 }
             }
         } catch (SQLException e) {

@@ -9,7 +9,7 @@ package com.laundryyuk.model;
  * @author gandisuastika
  */
 
-public class User {
+public abstract class User {
     private String userId;
     private String email;
     private String passwordHash;
