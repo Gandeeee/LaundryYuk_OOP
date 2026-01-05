@@ -11,9 +11,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="com.laundryyuk.dao.OrderDAO"%>
 
-<%-- 
-   Akseslah via Servlet: /customer?action=dashboard
---%>
 
 <%
     User user = (User) session.getAttribute("user");
@@ -407,11 +404,15 @@
                                                 <%-- KONDISI 1: BELUM UPLOAD --%>
                                                 <div class="text-center mb-2">
                                                     <%-- Pastikan gambar qris_laundry.jpeg sudah ada di folder assets/images --%>
-                                                    <img src="${pageContext.request.contextPath}/assets/images/qris_laundry.jpeg" 
-                                                         alt="Scan QRIS" 
-                                                         class="img-fluid border p-1 rounded bg-white shadow-sm" 
-                                                         style="width: 150px; cursor: zoom-in;"
-                                                         onclick="openLightbox(this.src)">
+                                                    <button type="button" 
+                                                            class="btn p-0 border-0 bg-transparent lightbox-trigger" 
+                                                            data-src="${pageContext.request.contextPath}/assets/images/qris_laundry.jpeg"
+                                                            style="outline: none;">
+                                                        <img src="${pageContext.request.contextPath}/assets/images/qris_laundry.jpeg" 
+                                                             alt="Scan QRIS" 
+                                                             class="img-fluid border p-1 rounded bg-white shadow-sm" 
+                                                             style="width: 150px; cursor: zoom-in;">
+                                                    </button>
                                                     <div style="font-size: 0.7rem;" class="text-muted mt-1">BCA: 1234567890</div>
                                                 </div>
                                                 <button class="btn btn-sm btn-danger w-100 fw-bold" data-bs-target="#uploadPaymentModal_<%= o.getOrderId() %>" data-bs-toggle="modal">
@@ -505,8 +506,8 @@
                             <input type="text" class="form-control" value="#<%= o.getOrderId() %>" readonly>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Total Tagihan</label>
-                            <input type="text" class="form-control fw-bold" value="Rp <%= (int)o.getTotalPrice() %>" readonly>
+                            <label class="form-label" for="inputBill_<%= o.getOrderId() %>">Total Tagihan</label>
+                            <input type="text" class="form-control fw-bold" id="inputBill_<%= o.getOrderId() %>" value="Rp <%= (int)o.getTotalPrice() %>" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="proofFile" class="form-label fw-bold">Pilih Foto Bukti Transfer</label>
@@ -544,14 +545,18 @@
                         <p class="text-muted small mb-4">Masukan Anda membantu kami berkembang.</p>
                         
                         <div class="mb-4 p-3 bg-light rounded border">
-                            <label class="form-label fw-bold d-block text-start mb-3">Skor (1-10)</label>
+                            <label for="ratingRange_<%= o.getOrderId() %>" class="form-label fw-bold d-block text-start mb-3">Skor (1-10)</label>
                             <div class="d-flex align-items-center justify-content-center gap-3">
                                 <span class="fw-bold text-muted">1</span>
-                                <input type="range" class="form-range" min="1" max="10" step="1" 
+                                <input type="range" 
+                                       class="form-range" 
+                                       id="ratingRange_<%= o.getOrderId() %>" 
+                                       min="1" max="10" step="1" 
                                        name="score" value="10" 
                                        oninput="document.getElementById('scoreVal_<%= o.getOrderId() %>').innerText = this.value">
                                 <span class="fw-bold text-muted">10</span>
                             </div>
+
                             <div class="mt-2 fw-bold fs-4 text-warning">
                                 <span id="scoreVal_<%= o.getOrderId() %>">10</span>/10
                             </div>
@@ -576,11 +581,11 @@
     <% }} %>
     
     <%-- ========================================== --%>
-    <%-- LIGHTBOX OVERLAY (UNTUK ZOOM QRIS)         --%>
+    <%-- LIGHTBOX OVERLAY                           --%>
     <%-- ========================================== --%>
     <div id="qrisLightbox" class="lightbox-overlay" onclick="closeLightbox()">
         <span class="close-btn">&times;</span>
-        <img class="lightbox-content" id="lightboxImg">
+        <img class="lightbox-content" id="lightboxImg" alt="Bukti Pembayaran">
         <div class="lightbox-caption">Klik di mana saja untuk menutup</div>
     </div>
 

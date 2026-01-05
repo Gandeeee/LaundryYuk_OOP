@@ -4,13 +4,6 @@
     Author     : gandisuastika
 --%>
 
-<%-- 
-    Document   : dashboard
-    Created on : 26 Dec 2025, 12.26.40
-    Author     : gandisuastika
---%>
-
-
 <%@page import="com.laundryyuk.model.OrderStatus"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.laundryyuk.model.Order"%>
@@ -51,8 +44,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-
-    <nav class="sidebar" id="adminSidebar">
+    
+<!--BAGIAN NAVBAR-->
+    <nav class="sidebar" id="adminSidebar" aria-label="Sidebar Navigation">
         <a href="#" class="sidebar-brand">
             <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="Logo" class="brand-logo" style="max-height: 50px;">
             <span class="ms-2 fw-bold text-dark">LaundryYuk</span>
@@ -67,11 +61,11 @@
             <a class="nav-link text-danger" href="${pageContext.request.contextPath}/auth?action=logout"><i class="bi bi-box-arrow-left"></i> Logout</a>
         </div>
     </nav>
+<!--BAGIAN NAVBAR-->
 
     <div id="sidebarOverlay" class="sidebar-overlay"></div>
-
     <main class="content">
-        <nav class="top-navbar">
+        <nav class="top-navbar" aria-label="Top Navigation">
             <div class="d-flex align-items-center">
                 <button class="btn btn-light d-lg-none me-3" id="sidebarToggleBtn"><i class="bi bi-list"></i></button>
                 <h5 class="mb-0 fw-bold" id="page-title">Dashboard</h5>
@@ -115,8 +109,24 @@
             </div>
                         
             <div class="row g-4 mb-4">
-                <div class="col-lg-6"><div class="card-modern h-100"><div class="card-header-modern"><h5>Tren Order</h5></div><div class="card-body p-4"><canvas id="dash_trenChart"></canvas></div></div></div>
-                <div class="col-lg-6"><div class="card-modern h-100"><div class="card-header-modern"><h5>Pendapatan</h5></div><div class="card-body p-4"><canvas id="dash_revChart"></canvas></div></div></div>
+                <div class="col-lg-6">
+                    <div class="card-modern h-100">
+                        <div class="card-header-modern">
+                            <h5>Tren Order</h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <canvas id="dash_trenChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6"><div class="card-modern h-100">
+                        <div class="card-header-modern">
+                            <h5>Pendapatan</h5></div>
+                        <div class="card-body p-4">
+                            <canvas id="dash_revChart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -154,7 +164,7 @@
                                 <td><span class="status-badge <%= badgeClass %>"><%= o.getStatus().name().replace("_", " ") %></span></td>
                                 <td><% if(o.isPaid()) { %> <span class="payment-badge bg-success">LUNAS</span> <% } else { %> <span class="payment-badge bg-warning">TAGIHAN: <%= (int)o.getTotalPrice() %></span> <% } %></td>
                                 <td class="text-end action-buttons-order">
-                                    <%-- TOMBOL 1: JEMPUT (Muncul jika Menunggu Dijemput) --%>
+                                    <%-- 1: JEMPUT (Muncul jika Menunggu Dijemput) --%>
                                     <% if(isWaitingDriver) { %>
                                         <button class="btn-action btn-tagihan" 
                                                 data-bs-toggle="modal" 
@@ -167,7 +177,7 @@
                                         </button>
                                     <% } %>
                                     
-                                    <%-- TOMBOL BARU: ANTAR (Muncul jika Selesai Dicuci) --%>
+                                    <%-- 2: ANTAR (Muncul jika Selesai Dicuci) --%>
                                     <% if("SELESAI_DICUCI".equals(currentStatus)) { %>
                                         <button class="btn-action btn-tagihan" 
                                                 data-bs-toggle="modal" 
@@ -180,7 +190,7 @@
                                         </button>
                                     <% } %>
                                     
-                                    <%-- TOMBOL 2: INPUT TAGIHAN (Target Modal Unik) --%>
+                                    <%-- 3: INPUT TAGIHAN --%>
                                     <% if(isBillRequired) { %>
                                         <button class="btn-action btn-success border-success text-success" 
                                                 data-bs-toggle="modal" 
@@ -188,8 +198,6 @@
                                             <i class="bi bi-calculator"></i> Input Tagihan
                                         </button>
                                     <% } %>
-                                    
-                                    <%-- REVISI: Muncul SELALU jika status MENUNGGU_PEMBAYARAN (Tanpa cek null gambar) --%>
                                     <% if ("MENUNGGU_PEMBAYARAN".equals(o.getStatus().name())) { %>
                                         <button class="btn-action btn-success border-success text-success" 
                                                 data-bs-toggle="modal" 
@@ -198,12 +206,12 @@
                                         </button>
                                     <% } %>
 
-                                    <%-- TOMBOL 3: STATUS --%>
+                                    <%-- 4: STATUS --%>
                                     <button class="btn-action btn-status" data-bs-toggle="modal" data-bs-target="#statusModal_<%= o.getOrderId() %>">
                                         <i class="bi bi-list-check"></i> Status
                                     </button>
                                         
-                                    <%-- TOMBOL 4: Hapus --%>
+                                    <%-- 5: Hapus --%>
                                     <a href="${pageContext.request.contextPath}/admin?action=deleteOrder&order_id=<%= o.getOrderId() %>" 
                                        class="btn-action text-danger border-danger me-1"
                                        onclick="return confirm('PERINGATAN: Yakin ingin menghapus Order #<%= o.getOrderId() %>? Data akan hilang permanen!')"
@@ -285,7 +293,7 @@
         </div>
         
         <div id="page-laporan" class="page-content">
-            <%-- DATA JEMBATAN UNTUK CHART JS (REAL TIME) --%>
+            <%-- DATA JEMBATAN UNTUK CHART JS --%>
             <input type="hidden" id="chartDataLabels" value='<%= request.getAttribute("chartLabels") %>'>
             <input type="hidden" id="chartDataOrder" value='<%= request.getAttribute("chartOrderData") %>'>
             <input type="hidden" id="chartDataRevenue" value='<%= request.getAttribute("chartRevenueData") %>'>
@@ -296,7 +304,7 @@
                     <h4 class="fw-bold mb-1">Laporan Keuangan</h4>
                     <p class="text-muted mb-0">Ringkasan performa dan export data.</p>
                 </div>
-                <%-- TOMBOL EXPORT CSV (HANYA YANG LUNAS) --%>
+                <%-- TOMBOL EXPORT CSV --%>
                 <a href="${pageContext.request.contextPath}/admin?action=exportCSV" 
                    class="btn-add-order text-decoration-none">
                     <i class="bi bi-file-earmark-spreadsheet-fill"></i> Download Laporan
@@ -415,13 +423,13 @@
     <%-- 2. MODAL INPUT TAGIHAN (Hanya dirender jika status CUCIAN_DIAMBIL) --%>
     <% if(isBillRequired) { 
          // 1. AMBIL DATA REAL DARI DATABASE
-         String svcType = o.getServiceType(); // Ini mengambil string dari kolom service_type
+         String svcType = o.getServiceType();
          if(svcType == null) svcType = "";
          
          double fixedPrice = 0;
          boolean isSatuan = false;
 
-         // 2. MAPPING HARGA (HARUS SAMA PERSIS DENGAN OPSI DI CUSTOMER)
+         // 2. MAPPING HARGA
          // Kiloan
          if (svcType.equals("Cuci Kering")) fixedPrice = 5000;
          else if (svcType.equals("Cuci Kering Lipat")) fixedPrice = 5500;
@@ -435,7 +443,7 @@
          else if (svcType.equals("Setrika Saja")) fixedPrice = 5000;
          else if (svcType.equals("Kering Saja")) fixedPrice = 4000;
          
-         // Satuan (Deteksi awalan kata "Satuan")
+         // Satuan
          else if (svcType.startsWith("Satuan")) {
              isSatuan = true;
              if (svcType.equals("Satuan Bedcover")) fixedPrice = 35000; // Ambil rata-rata/terendah
@@ -454,30 +462,28 @@
                     <input type="hidden" name="order_id" value="<%= o.getOrderId() %>">
                     <%-- Kirim harga satuan ke backend untuk dikalikan --%>
                     <input type="hidden" name="price_per_kg" value="<%= fixedPrice %>"> 
-                    
                     <div class="modal-header bg-success text-white">
                         <h5 class="modal-title"><i class="bi bi-calculator"></i> Input Tagihan #<%= o.getOrderId() %></h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <%-- TAMPILKAN DATA DARI DATABASE (READ-ONLY) --%>
+                        <%-- TAMPILKAN DATA DARI DATABASE --%>
                         <div class="mb-3">
-                            <label class="fw-bold">Layanan Terpilih (Data Database)</label>
+                            <label class="fw-bold" for="layananInput">Layanan Terpilih (Data Database)</label>
                             <input type="text" class="form-control bg-light fw-bold text-dark" 
                                    value="<%= svcType %>" readonly>
                             <div class="form-text">Tarif Sistem: Rp <%= (int)fixedPrice %> / <%= isSatuan ? "Pcs" : "Kg" %></div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="fw-bold"><%= isSatuan ? "Jumlah (Pcs)" : "Berat Aktual (Kg)" %></label>
+                            <label class="fw-bold" for="inputAktual"><%= isSatuan ? "Jumlah (Pcs)" : "Berat Aktual (Kg)" %></label>
                             <%-- Input dengan Script Kalkulator Sederhana --%>
                             <input type="number" step="0.1" class="form-control" name="weight" 
                                    placeholder="Masukkan angka..." required
                                    oninput="let val = parseFloat(this.value) || 0; let total = val * <%= fixedPrice %>; document.getElementById('total_<%= o.getOrderId() %>').innerText = 'Rp ' + total.toLocaleString('id-ID')">
                         </div>
-                        
                         <div class="p-3 bg-light rounded border text-center">
-                            <label class="small text-muted">Total Tagihan:</label>
+                            <label class="small text-muted" for="totalTagihan">Total Tagihan:</label>
                             <h3 class="fw-bold text-success mb-0" id="total_<%= o.getOrderId() %>">Rp 0</h3>
                         </div>
                         
@@ -496,14 +502,12 @@
     </div>
     <% } %>
     
-    <%-- MODAL VERIFY PAYMENT (LOGIKA BARU: DUAL STATE) --%>
+    <%-- MODAL VERIFY PAYMENT --%>
     <% if ("MENUNGGU_PEMBAYARAN".equals(o.getStatus().name())) { 
-         // Ekstrak No HP untuk WA
          String rawPhone = "";
          if(o.getPickupAddress().contains("(")) {
              rawPhone = o.getPickupAddress().substring(o.getPickupAddress().lastIndexOf("(") + 1, o.getPickupAddress().lastIndexOf(")"));
          }
-         // Cek Database: Apakah bukti ada?
          boolean hasProof = (o.getPaymentProof() != null && !o.getPaymentProof().isEmpty());
     %>
     <div class="modal fade" id="verifyModal_<%= o.getOrderId() %>" tabindex="-1">
@@ -519,7 +523,7 @@
                     <p class="mb-1">Order ID: <strong>#<%= o.getOrderId() %></strong></p>
                     <p class="text-muted mb-3">Total Tagihan: <span class="text-danger fw-bold">Rp <%= (int)o.getTotalPrice() %></span></p>
                     
-                    <%-- KONDISI 1: CUSTOMER BELUM UPLOAD (GAMBAR KOSONG) --%>
+                    <%-- KONDISI 1: CUSTOMER BELUM UPLOAD --%>
                     <% if (!hasProof) { %>
                         <div class="alert alert-secondary d-flex align-items-center justify-content-center gap-2 py-4" role="alert">
                             <i class="bi bi-hourglass-split fs-1 text-secondary"></i>
@@ -528,19 +532,21 @@
                                 <span class="small">Customer belum mengupload foto bukti transfer.</span>
                             </div>
                         </div>
-                        <%-- Tombol Hubungi Customer --%>
+                        
                         <a href="https://wa.me/<%= rawPhone %>?text=Halo%20kak,%20mohon%20segera%20upload%20bukti%20pembayaran%20untuk%20Order%20#<%= o.getOrderId() %>" 
                            target="_blank" class="btn btn-outline-success btn-sm mt-2">
                             <i class="bi bi-whatsapp"></i> Ingatkan Customer
                         </a>
 
-                    <%-- KONDISI 2: CUSTOMER SUDAH UPLOAD (TAMPILKAN GAMBAR) --%>
+                    <%-- KONDISI 2: CUSTOMER SUDAH UPLOAD --%>
                     <% } else { %>
                         <div class="bg-light p-2 border rounded d-inline-block mb-3 position-relative">
-                            <img src="${pageContext.request.contextPath}/assets/uploads/<%= o.getPaymentProof() %>" 
-                                 class="img-fluid rounded" 
-                                 style="max-height: 350px; cursor: zoom-in;"
-                                 onclick="window.open(this.src, '_blank')">
+                            <a href="${pageContext.request.contextPath}/assets/uploads/<%= o.getPaymentProof() %>" target="_blank">
+                                <img src="${pageContext.request.contextPath}/assets/uploads/<%= o.getPaymentProof() %>"
+                                     class="img-fluid rounded"
+                                     style="max-height: 350px; cursor: zoom-in;"
+                                     alt="Bukti Pembayaran">
+                            </a>
                             <div class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 Baru
                             </div>
@@ -552,7 +558,7 @@
                 <%-- FOOTER: TOMBOL AKSI --%>
                 <div class="modal-footer justify-content-center bg-light">
                     <% if (!hasProof) { %>
-                        <%-- Jika belum upload, Admin hanya bisa tutup (Tombol Verify DI-HIDE) --%>
+                        <%-- Jika belum upload, Admin hanya bisa tutup --%>
                         <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Tutup (Menunggu Customer)</button>
                     <% } else { %>
                         <%-- Jika sudah upload, Admin HARUS memverifikasi --%>
@@ -567,7 +573,6 @@
                                     <i class="bi bi-x-circle"></i> Tolak / Buram
                                 </button>
                             </form>
-
                             <%-- TOMBOL SAH --%>
                             <form action="${pageContext.request.contextPath}/admin" method="POST" class="w-50">
                                 <input type="hidden" name="action" value="verifyPayment">
@@ -584,67 +589,9 @@
         </div>
     </div>
     <% } %>
-
     <% }} %>
 
-    <%-- MODAL-MODAL STATIS LAINNYA --%>
-    <div id="page-drivers" class="page-content">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4 class="fw-bold">Data Driver</h4>
-                <button class="btn-add-order" data-bs-toggle="modal" data-bs-target="#driverModal" data-action="create">
-                    <i class="bi bi-person-plus-fill"></i> Tambah Driver
-                </button>
-        </div>
-        <div class="card-order-management">
-                <div class="table-responsive">
-                    <table class="table table-order-management mb-0">
-                        <thead>
-                            <tr>
-                                <th>ID Driver</th>
-                                <th>Informasi</th>
-                                <th>Ketersediaan</th>
-                                <th class="text-end">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% if (driverList != null) { for(Driver d : driverList) { %>
-                            <tr>
-                                <td><span class="badge bg-light text-dark border">#<%= d.getDriverId() %></span></td>
-                                <td>
-                                    <div class="fw-bold"><%= d.getDriverName() %></div>
-                                    <small class="text-muted"><i class="bi bi-whatsapp text-success"></i> <%= d.getDriverPhone() %></small>
-                                </td>
-                                <td>
-                                    <% if(d.isAvailable()) { %>
-                                        <span class="status-badge bg-success"><i class="bi bi-check-circle"></i> Tersedia</span>
-                                    <% } else { %>
-                                        <span class="status-badge bg-secondary"><i class="bi bi-slash-circle"></i> Sibuk</span>
-                                    <% } %>
-                                </td>
-                                <td class="text-end">
-                                    <button class="btn-action" 
-                                            data-bs-toggle="modal" data-bs-target="#driverModal" 
-                                            data-action="update" 
-                                            data-driver-id="<%= d.getDriverId() %>"
-                                            data-name="<%= d.getDriverName() %>"
-                                            data-phone="<%= d.getDriverPhone() %>"
-                                            data-available="<%= d.isAvailable() %>">
-                                        <i class="bi bi-pencil-square"></i> Edit
-                                    </button>
-                                    <a href="${pageContext.request.contextPath}/admin?action=deleteDriver&driver_id=<%= d.getDriverId() %>" 
-                                       class="btn btn-sm btn-outline-danger"
-                                       onclick="return confirm('Hapus driver ini?')">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <% }} %>
-                        </tbody>
-                    </table>
-                </div>
-        </div>   
-    </div>
-    
+    <%-- MODAL MODAL STATIS LAINNYA --%>
     <div class="modal fade" id="assignDriverModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -660,10 +607,13 @@
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3"><label class="fw-bold">Order ID</label><input type="text" class="form-control" id="assign_order_id_view" readonly></div>
                         <div class="mb-3">
-                            <label class="fw-bold">Pilih Driver Tersedia</label>
-                            <select class="form-select" name="driver_id" required>
+                            <label class="fw-bold" for="assign_order_id_view">Order ID</label>
+                            <input type="text" class="form-control" id="assign_order_id_view" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold" for="assign_driver_select">Pilih Driver Tersedia</label>
+                            <select class="form-select" name="driver_id" id="assign_driver_select" required>
                                 <option value="" selected disabled>-- Pilih Driver --</option>
                                 <% if (driverList != null) { for (Driver d : driverList) { if (d.isAvailable()) { %>
                                 <option value="<%= d.getDriverId() %>"><%= d.getDriverName() %></option>
@@ -687,9 +637,18 @@
                     <input type="hidden" name="driver_id" id="driver_id_input">
                     <div class="modal-header"><h5 class="modal-title fw-bold" id="driverModalTitle">Kelola Driver</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
                     <div class="modal-body">
-                        <div class="mb-3"><label class="fw-bold">Nama Driver</label><input type="text" class="form-control" id="driverName" name="name" required></div>
-                        <div class="mb-3"><label class="fw-bold">Nomor WhatsApp</label><input type="tel" class="form-control" id="driverPhone" name="phone" required></div>
-                        <div class="form-check form-switch p-3 border rounded"><input class="form-check-input" type="checkbox" name="isAvailable" id="driverAvailable" checked><label class="fw-bold">Tersedia</label></div>
+                        <div class="mb-3">
+                            <label class="fw-bold" for="driverName">Nama Driver</label>
+                            <input type="text" class="form-control" id="driverName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold" for="driverPhone">Nomor WhatsApp</label>
+                            <input type="tel" class="form-control" id="driverPhone" name="phone" required>
+                        </div>
+                        <div class="form-check form-switch p-3 border rounded">
+                            <input class="form-check-input" type="checkbox" name="isAvailable" id="driverAvailable" checked>
+                            <label class="fw-bold" for="driverAvailable">Tersedia</label>
+                        </div>
                     </div>
                     <div class="modal-footer"><button type="submit" class="btn btn-danger">Simpan</button></div>
                 </form>
@@ -697,7 +656,7 @@
         </div>
     </div>
                     
-    <%-- ALTERNATIF: TAMPILKAN TOMBOL WA DI ALERT --%>
+    <%-- ALTERNATIF: TAMPILKAN TOMBOL WA --%>
     <% if (session.getAttribute("openWaUrl") != null) { %>
         <div class="alert alert-warning alert-dismissible fade show fixed-top m-3 shadow" role="alert" style="z-index: 9999;">
             <strong>Pembayaran Ditolak!</strong> Silakan hubungi customer:

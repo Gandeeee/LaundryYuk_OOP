@@ -1,8 +1,5 @@
-/* customer/customer.css
-   REVISI FINAL - Proporsional dan Bersih
-*/
 
-/* 1. Variabel Warna & Font Global (dari Referensi) */
+/* 1. Variabel Warna & Font Global */
 :root {
     --admin-primary: #dc2626; /* Merah Utama */
     --admin-primary-light: #fef2f2; /* Merah Muda (untuk hover/bg) */
@@ -147,7 +144,6 @@ body {
 
 /* 6. Cards */
 .card {
-    border: none;
     border-radius: 16px; /* Radius kartu */
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07); /* Shadow kartu */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -464,11 +460,6 @@ footer p {
     border-color: rgba(245, 158, 11, 0.2);
 }
 
-
-
-/* =========================================
-   REVISI MOBILE NAVBAR (UI/UX IMPROVED)
-   ========================================= */
 @media (max-width: 991.98px) {
     
     /* 1. Container Dropdown: Memberikan kesan 'Drawer' yang rapi */
@@ -553,8 +544,8 @@ footer p {
     }
     
     .navbar-collapse .d-flex span::before {
-        content: '\F4E1'; /* Kode ikon Bootstrap (Person) */
-        font-family: 'bootstrap-icons';
+        content: '\F4E1'; 
+        font-family: 'bootstrap-icons', sans-serif;
         margin-right: 10px;
         font-size: 1.2rem;
         color: var(--admin-gray);

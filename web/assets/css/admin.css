@@ -1,6 +1,3 @@
-/* ==========================================================================
-   MODERN LAUNDRY ADMIN DASHBOARD - ELEGANT THEME (INTEGRATED VERSION)
-   ========================================================================== */
 
 /* 1. VARIABLES & GLOBAL RESET */
 :root {
@@ -29,9 +26,6 @@ body {
     color: var(--admin-dark);
 }
 
-/* ==========================================================================
-   2. SIDEBAR (DENGAN EFEK HOVER MODERN)
-   ========================================================================== */
 .sidebar {
     width: var(--sidebar-width);
     background: var(--admin-light);
@@ -87,7 +81,7 @@ body {
     transition: all 0.3s ease; color: var(--admin-gray);
 }
 
-/* --- EFEK HOVER SIDEBAR (PERMINTAAN #2) --- */
+/* --- EFEK HOVER SIDEBAR --- */
 .sidebar .nav-link:hover {
     background: var(--admin-primary-light);
     color: var(--admin-primary);
@@ -108,7 +102,6 @@ body {
 
 .sidebar .nav-link.active i { color: var(--admin-primary); transform: scale(1.1); }
 
-/* Garis Indikator Kiri */
 .sidebar .nav-link::before {
     content: ''; position: absolute; left: 0; top: 0;
     height: 100%; width: 4px; background: var(--admin-primary);
@@ -128,9 +121,6 @@ body {
     transform: translateX(3px);
 }
 
-/* ==========================================================================
-   3. LAYOUT & NAVBAR
-   ========================================================================== */
 .content {
     flex: 1; margin-left: var(--sidebar-width);
     background: var(--admin-gray-light);
@@ -147,9 +137,6 @@ body {
     position: sticky; top: 0; z-index: 999;
 }
 
-/* ==========================================================================
-   4. DASHBOARD STATS (DENGAN EFEK HOVER CARD)
-   ========================================================================== */
 .dashboard-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -167,14 +154,12 @@ body {
     display: flex; align-items: center; gap: 1.5rem;
 }
 
-/* --- EFEK HOVER CARD (PERMINTAAN #1) --- */
 .stat-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
     border-color: transparent;
 }
 
-/* Garis Indikator Atas */
 .stat-card::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0;
     height: 4px; background: var(--admin-primary);
@@ -190,8 +175,6 @@ body {
 }
 
 .stat-card:hover .stat-icon { transform: scale(1.1) rotate(5deg); }
-
-/* Warna Icon */
 .stat-card.primary .stat-icon { background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.2)); color: var(--admin-primary); }
 .stat-card.success .stat-icon { background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(5, 150, 105, 0.2)); color: var(--admin-success); }
 .stat-card.warning .stat-icon { background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(217, 119, 6, 0.2)); color: var(--admin-warning); }
@@ -203,9 +186,6 @@ body {
 .stat-card:hover .stat-content h3 { color: var(--admin-primary); }
 .stat-content p { color: var(--admin-gray); font-weight: 500; margin: 0; font-size: 0.9rem; }
 
-/* ==========================================================================
-   5. MODERN CARDS & TABLES (DENGAN EFEK HOVER TABLE)
-   ========================================================================== */
 .card-modern, .card-order-management {
     background: var(--admin-light);
     border-radius: 16px;
@@ -233,7 +213,6 @@ body {
     font-size: 1.1rem; display: flex; align-items: center; gap: 10px;
 }
 
-/* --- TABLE STYLING --- */
 .table-modern, .table-order-management {
     width: 100%; margin: 0; border-collapse: collapse;
 }
@@ -255,7 +234,6 @@ body {
     transition: all 0.2s ease;
 }
 
-/* --- EFEK HOVER TABLE ROW (PERMINTAAN #3) --- */
 .table-modern tbody tr, .table-order-management tbody tr {
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
@@ -271,9 +249,6 @@ body {
     color: var(--admin-primary);
 }
 
-/* ==========================================================================
-   6. COMPONENTS (BUTTONS & BADGES)
-   ========================================================================== */
 .status-badge, .payment-badge {
     padding: 0.4rem 0.8rem; border-radius: 6px;
     font-weight: 600; font-size: 0.7rem;
@@ -290,7 +265,6 @@ body {
 .bg-info { background: var(--admin-info) !important; color: white; }
 .bg-dark { background: var(--admin-dark) !important; color: white; }
 
-/* Buttons */
 .btn-add-order {
     background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
     color: white; border: none; padding: 0.7rem 1.25rem;
@@ -320,9 +294,6 @@ body {
 .btn-action.btn-status { color: var(--admin-info); border-color: var(--admin-info); }
 .btn-action.btn-status:hover { background: var(--admin-info); color: #fff; }
 
-/* ==========================================================================
-   7. UTILITY & RESPONSIVE
-   ========================================================================== */
 .page-content {
     padding: 2rem; display: none;
     animation: fadeIn 0.4s ease-out;
@@ -359,42 +330,33 @@ body.sidebar-toggled .sidebar-overlay { display: block; }
     .btn-action { padding: 0.4rem 0.6rem; font-size: 0.7rem; }
 }
 
-
-/* ==========================================================================
-   8. BUG FIX: TOGGLE SWITCH ALIGNMENT (MODAL DRIVER)
-   ========================================================================== */
-
-/* Target elemen spesifik di modal driver yang menggunakan class p-3 border */
 .form-switch.p-3 {
-    display: flex !important;       /* Gunakan Flexbox */
-    align-items: center !important; /* Rata tengah vertikal */
-    padding-left: 1.25rem !important; /* Reset padding kiri container */
-    gap: 15px;                      /* Jarak antara Switch dan Teks */
-    background-color: #fff;         /* Pastikan background putih bersih */
+    display: flex !important;       
+    align-items: center !important; 
+    padding-left: 1.25rem !important; 
+    gap: 15px;                      
+    background-color: #fff;         
     border: 1px solid var(--admin-border) !important;
 }
 
-/* Reset posisi Input Switch (Hilangkan negative margin bawaan Bootstrap) */
 .form-switch.p-3 .form-check-input {
-    margin-left: 0 !important;      /* Hapus margin negatif */
-    float: none !important;         /* Hapus float */
-    width: 3.2em !important;        /* Lebar switch sedikit diperbesar */
-    height: 1.6em !important;       /* Tinggi switch proporsional */
+    margin-left: 0 !important;      
+    float: none !important;         
+    width: 3.2em !important;        
+    height: 1.6em !important;       
     cursor: pointer;
-    flex-shrink: 0;                 /* Mencegah switch mengecil */
-    background-color: #e5e7eb;      /* Warna saat mati (abu-abu) */
+    flex-shrink: 0;                 
+    background-color: #e5e7eb;     
     border-color: #d1d5db;
     transition: background-position .15s ease-in-out, background-color .3s;
 }
 
-/* Warna saat Switch AKTIF (Checked) -> Hijau (Tersedia) */
 .form-switch.p-3 .form-check-input:checked {
     background-color: var(--admin-success);
     border-color: var(--admin-success);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
 }
 
-/* Styling Label Teks */
 .form-switch.p-3 .form-check-label {
     margin-bottom: 0;
     cursor: pointer;
@@ -402,16 +364,12 @@ body.sidebar-toggled .sidebar-overlay { display: block; }
     color: var(--admin-dark);
 }
 
-/* Styling Teks Keterangan Kecil di bawah label */
 .form-switch.p-3 .text-muted {
     display: block;
     margin-top: 2px;
     font-weight: 400;
 }
 
-/* ===== MANAJEMEN ORDER STYLING ===== */
-
-/* Card Modern untuk Order Table */
 .card-order-management {
     background: var(--admin-light);
     border-radius: 16px;
@@ -450,7 +408,6 @@ body.sidebar-toggled .sidebar-overlay { display: block; }
     font-size: 1.2rem;
 }
 
-/* Table Styling untuk Order */
 .table-order-management {
     margin: 0;
     border-color: var(--admin-border);

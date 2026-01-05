@@ -41,8 +41,6 @@
                     <li class="nav-item"><a class="nav-link fw-medium" href="#layanan">Layanan</a></li>
                     <li class="nav-item"><a class="nav-link fw-medium" href="#cara-kerja">Cara Kerja</a></li>
                     <li class="nav-item"><a class="nav-link fw-medium" href="#harga">Harga</a></li>
-                    
-
                     <% 
                         // Cek session user
                         User user = (User) session.getAttribute("user");

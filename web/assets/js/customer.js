@@ -9,7 +9,7 @@ $(document).ready(function() {
     // Event Klik Navbar
     $('.nav-link').on('click', function(e) {
         e.preventDefault();
-        var targetId = $(this).attr('id');
+        const targetId = $(this).attr('id');
         
         // Update Active Class
         $('.nav-link').removeClass('active');

@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             targetLink.classList.add('active');
             if(pageTitle) pageTitle.textContent = targetLink.innerText.trim();
         }
-        if (window.innerWidth < 992) {
+        if (globalThis.innerWidth < 992) {
             document.body.classList.remove('sidebar-toggled');
         }
     }
@@ -44,49 +44,42 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const pageId = link.getAttribute('data-page');
+            const pageId = link.dataset.page;
             activateTab(pageId);
-            const url = new URL(window.location);
+            const url = new URL(globalThis.location);
             url.searchParams.set('page', pageId);
-            window.history.pushState({}, '', url);
+            globalThis.history.pushState({}, '', url);
         });
     });
 
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(globalThis.location.search);
     const activePage = urlParams.get('page') || 'dashboard';
     activateTab(activePage);
 
 
-    // 3. MODAL HANDLERS (UI HELPER - COPY PASTE TEKS SAJA)
-
-    // A. Modal Assign Driver (Jemput & Antar) - REVISI DINAMIS
+    // 3. MODAL UI
+    // A. Modal Assign Driver (Jemput & Antar)
     const assignDriverModalEl = document.getElementById('assignDriverModal');
     if (assignDriverModalEl) {
         assignDriverModalEl.addEventListener('show.bs.modal', function(event) {
-            // 1. Tangkap tombol yang diklik (bisa tombol 'Jemput' atau 'Antar')
             const button = event.relatedTarget;
             
-            // 2. Ambil data dari atribut data-* di tombol tersebut
-            const orderId = button.getAttribute('data-order-id');
-            const statusTarget = button.getAttribute('data-status-target'); // 'DRIVER_OTW' atau 'DIKIRIM'
-            const modalTitle = button.getAttribute('data-modal-title');
-            const modalInfo = button.getAttribute('data-modal-info');
+            const orderId = button.dataset.orderId;
+            const statusTarget = button.dataset.statusTarget;
+            const modalTitle = button.dataset.modalTitle;
+            const modalInfo = button.dataset.modalInfo;
             
-            // 3. Isi nilai ke dalam Input Form di Modal
             document.getElementById('assign_order_id').value = orderId;
             document.getElementById('assign_order_id_view').value = "#" + orderId;
             
-            // PENTING: Mengisi hidden input agar Controller tahu ini Jemput atau Antar
             const targetStatusInput = document.getElementById('assign_target_status');
             if (targetStatusInput) {
                 targetStatusInput.value = statusTarget;
             }
             
-            // 4. Update Tampilan Teks Modal (Judul & Info Alert)
             const titleEl = document.getElementById('assign_modal_title');
             const infoEl = document.getElementById('assign_modal_info');
             
-            // Gunakan innerHTML karena kita mengirim tag <b> dari JSP
             if (titleEl) titleEl.innerHTML = '<i class="bi bi-truck"></i> ' + (modalTitle || "Tugaskan Driver");
             if (infoEl) infoEl.innerHTML = (modalInfo || "Status otomatis berubah.");
         });
@@ -96,16 +89,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (driverModalEl) {
         driverModalEl.addEventListener('show.bs.modal', function(e) {
             const button = e.relatedTarget;
-            const action = button.getAttribute('data-action');
+            const action = button.dataset.action; 
             const form = document.getElementById('formDriver');
             form.reset();
 
             if (action === 'update') {
                 document.getElementById('driverModalTitle').textContent = "Edit Driver";
-                document.getElementById('driver_id_input').value = button.getAttribute('data-driver-id');
-                document.getElementById('driverName').value = button.getAttribute('data-name');
-                document.getElementById('driverPhone').value = button.getAttribute('data-phone');
-                const isAvail = button.getAttribute('data-available') === 'true';
+                document.getElementById('driver_id_input').value = button.dataset.driverId;
+                document.getElementById('driverName').value = button.dataset.name;
+                document.getElementById('driverPhone').value = button.dataset.phone;
+                const isAvail = button.dataset.available === 'true';
                 document.getElementById('driverAvailable').checked = isAvail;
             } else {
                 document.getElementById('driverModalTitle').textContent = "Tambah Driver Baru";
@@ -115,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // 4. CHART JS (Visualisasi REAL TIME - DUAL LOCATION)
     const chartLabelsEl = document.getElementById('chartDataLabels');
     const chartOrderEl = document.getElementById('chartDataOrder');
     const chartRevenueEl = document.getElementById('chartDataRevenue');
@@ -131,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function renderTrenChart(canvasId) {
             const ctx = document.getElementById(canvasId);
             if (ctx) {
-                new Chart(ctx, {
+                const trenChart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: labels,
@@ -155,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function renderRevenueChart(canvasId) {
             const ctx = document.getElementById(canvasId);
             if (ctx) {
-                new Chart(ctx, {
+                const revChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: labels,
@@ -184,16 +176,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     
-
     const pendCtx = document.getElementById('pendapatanChart');
     if (pendCtx) {
-        new Chart(pendCtx, {
+        const pChart = new Chart(pendCtx, {
             type: 'bar',
             data: {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
                 datasets: [{
                     label: 'Pendapatan (Juta)',
-                    data: [1.5, 2.0, 1.2, 1.8, 2.5, 3.0],
+                    data: [1.5, 2, 1.2, 1.8, 2.5, 3],
                     backgroundColor: '#198754',
                     borderRadius: 5
                 }]
