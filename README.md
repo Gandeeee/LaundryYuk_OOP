@@ -5,16 +5,18 @@ Project ini adalah aplikasi web berbasis Java (JSP & Servlet) untuk manajemen op
 ## Arsitektur & Teknologi
 - **Bahasa:** Java (JDK 17/21)
 - **Framework:** Native JSP & Servlet (MVC Architecture)
+- **Servlet API:** **Jakarta Servlet** (Menggunakan `jakarta.servlet`, bukan `javax.servlet`)
 - **Database:** MySQL
 - **IDE:** Apache NetBeans
-- **Server:** Apache Tomcat (Built-in NetBeans)
+- **Server:** Apache Tomcat v10/v11 (Wajib support Jakarta EE)
 - **Frontend:** HTML, CSS, Bootstrap 5, JavaScript
 
 ## Prasyarat Software
 Pastikan software berikut sudah terinstall di laptop masing-masing:
-1.  **Apache NetBeans** (Versi 12 ke atas).
+1.  **Apache NetBeans** (Versi 12 ke atas, disarankan versi terbaru).
 2.  **Java Development Kit (JDK)** (Minimal versi 17).
-3.  **Local Server / Database:**
+3.  **Apache Tomcat v11:** Karena project ini menggunakan `jakarta.servlet`, pastikan server Tomcat yang digunakan adalah versi 10 atau 11 (bukan versi 9 ke bawah).
+4.  **Local Server / Database:**
     -   **Windows:** XAMPP (Apache + MySQL).
     -   **Mac:** MAMP (Apache + MySQL).
 
@@ -76,9 +78,17 @@ private static final String PASSWORD = "root";
 **Error: "Unknown Database"**
 - Pastikan Anda sudah membuat database dengan nama persis `db_laundry_yuk` (huruf kecil semua).
 
+**Error: "Package javax.servlet does not exist" atau Error Tomcat**
+- Project ini menggunakan **Tomcat v11** dengan standar **Jakarta EE**. Pastikan library server Anda menggunakan Tomcat versi 10 atau 11, karena versi lama (Tomcat 9 ke bawah) masih menggunakan `javax.servlet` yang tidak kompatibel dengan project ini.
+
 ---
 
 ## Akun Demo
-(Cek tabel `users` dan `admins` di database untuk data terbaru)
-- **Admin:** Cek tabel `admins`
-- **Customer:** Cek tabel `users` dengan role `CUSTOMER`
+Gunakan kredensial berikut untuk mencoba aplikasi:
+
+- **Admin (Tersedia Default):**
+  - **Username:** `admin@laundryyuk.com`
+  - **Password:** `admin123`
+
+- **Customer:**
+  - Akun customer **tidak disediakan** secara default. Silakan mencoba fitur **Register** pada halaman login untuk mendaftar sebagai role CUSTOMER secara bebas.
